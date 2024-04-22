@@ -1,10 +1,10 @@
-### Documentation for Maze Solver Using Depth-First Search (DFS)
+## Documentation for Maze Solver Using Depth-First Search (DFS)
 
-#### Overview
+### Overview
 
 <p align="center">
-  <img src="./images/maze16x16unsolved.png" alt="First Image" style="width: 50%;"/>
-  <img src="./images/maze16x16solved.png" alt="Second Image" style="width: 50%;"/>
+  <img src="./images/maze16x16unsolved.png" alt="Unsolved 16 by 16 maze" style="width: 100%;"/>
+  <img src="./images/maze16x16solved.png" alt="Solved 16 by 16 maze" style="width: 100%;"/>
 </p>
 
 This document provides a concise explanation of the Maze Solver program, which utilizes the Depth-First Search (DFS) algorithm to find a path through a given maze. The maze is represented as a 2D grid where open cells are marked by `0` (passable) and blocked cells are marked by `1` (impassable). The program is designed to visualize the path-finding process and can handle mazes of various sizes, demonstrating both the capability to find a path and handle situations where no path exists.
@@ -21,30 +21,107 @@ The graphical canvas initializes based on the dimensions of the chosen maze, wit
 
 > Unfortunately, my program only supports square matrices because I am unable to index into each row to get the number of colomns of the matrix.
 
-#### Depth-First Search Algorithm
+### Depth-First Search Algorithm
 
 The DFS algorithm begins at the start position, at the top-left corner of the maze (0,0), and attempts to find a path to the destination, at the bottom-right corner. It explores paths recursively, moving to adjacent cells not visited yet and marking them as visited. The path exploration follows four potential directions: right, down, left, and up.
 
 Key functions in the DFS implementation:
 
-- `dfs(x, y, end_x, end_y, map)`: This recursive function attempts to find a path to the destination. It marks the current cell as visited and proceeds to explore adjacent cells. If the destination is reached, the function returns true, indicating a successful path has been found.
-- `is_valid(x, y, map)`: Checks if the cell at position `(x, y)` is within bounds, not blocked, and not visited.
-- `is_visited(x, y)`: Determines if the cell has been visited during the DFS exploration. We keep an array of visited coordinates.
+- **`dfs(x, y, end_x, end_y, map)`**: This recursive function attempts to find a path to the destination. It marks the current cell as visited and proceeds to explore adjacent cells. If the destination is reached, the function returns true, indicating a successful path has been found.
+- **`is_valid(x, y, map)`**: Checks if the cell at position `(x, y)` is within bounds, not blocked, and not visited.
+- **`is_visited(x, y)`**: Determines if the cell has been visited during the DFS exploration. We keep an array of visited coordinates.
 
-#### Visualization and Path Drawing
+### Visualization and Path Drawing
 
 As the DFS explores the maze, the path taken is visualized by changing the color of the cells involved in the current path to orange. If the end of the maze is reached, the path is traced back and visualized. If no path is found, the program outputs "No path found."
 
-#### User Inputs and Settings
+### User Inputs and Settings
 
 The user can select different maps by editing the `MAP` variable at the beginning of the code. This flexibility allows the testing of the maze solver in various scenarios. The `map_width` and `map_height` variables are automatically adjusted based on the chosen map, ensuring the graphics are scaled correctly for different maze sizes.
 
-#### Special Features
+### Special Features
 
 - **Multiple Test Cases**: The code includes various predefined mazes to test the robustness and efficiency of the DFS algorithm in both simple and complex scenarios.
 - **Visual Feedback**: Real-time visualization of the DFS algorithm provides insightful feedback on how the algorithm explores the maze, which is beneficial for educational and debugging purposes.
 - **Error Handling**: The program checks for valid movements within the maze, preventing out-of-bound errors and ensuring that the path does not traverse blocked cells.
 
-#### Conclusion
+### Conclusion
 
 This Maze Solver program not only illustrates the practical application of the DFS algorithm in pathfinding but also serves as a tool for visualizing and understanding the dynamics of recursive algorithms in constrained environments. By adjusting the input mazes and observing the algorithm's behavior, users can gain deeper insights into the characteristics and performance of DFS in solving real-world problems.
+
+## Appendix
+
+> DFS Algorithm
+
+![dfs algo](./images/dfs.png)
+
+The function `dfs` implements a Depth-First Search (DFS) algorithm to navigate through a grid-based map. The function is designed to determine if there is a path from a start position `(x, y)` to a destination `(end_x, end_y)` within the grid.
+
+### Function Signature
+
+```python
+def dfs(x: int, y: int, end_x: int, end_y: int, map: list[list[int]])
+```
+
+#### Parameters
+
+- x (int): The current x-coordinate (row index) in the grid.
+- y (int): The current y-coordinate (column index) in the grid.
+- end_x (int): The x-coordinate (row index) of the destination.
+- end_y (int): The y-coordinate (column index) of the destination.
+- map (list[list[int]]): A 2D matrix representing the grid where typically, 0 might indicate a passable area and 1 a blocked area.
+
+### Function Description
+
+#### Base Case
+
+```python
+if (x == end_x) and (y == end_y):
+    return True
+```
+
+This checks if the current position is the destination. If so, the function returns True, indicating the path has been successfully found.
+
+#### Movement Directions
+
+```python
+directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+```
+
+Defines possible movements from any position:
+
+- [0, 1]: Move right
+- [1, 0]: Move down
+- [0, -1]: Move left
+- [-1, 0]: Move up
+
+#### Exploring Directions
+
+```python
+for coord in directions:
+    nx = (x + coord[0])
+    ny = (y + coord[1])
+```
+
+Iterates over each direction to calculate new potential positions (nx, ny).
+
+#### Validation and Recursive Call
+
+```python
+if is_valid(ny, nx, map) and not is_visited(nx, ny):
+    visited.append([nx, ny])
+    if dfs(nx, ny, end_x, end_y, map):
+        return True
+    visited.remove([nx, ny])
+```
+
+Checks if the new position is valid and not previously visited. If valid, it marks the position as visited and makes a recursive call. If the call finds a path, True is returned.
+
+#### Backtracking
+
+```python
+path.append([nx, ny])
+pixset(nx, ny, route)
+```
+
+If a path through (nx, ny) does not lead to the destination, it backtracks by removing the position from the visited list, adds to the path list for tracking, and potentially marks the position visually or otherwise.
