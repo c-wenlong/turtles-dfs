@@ -1,13 +1,11 @@
 # MAP
+# POSITIVE 
 map4x4=[[0, 0, 1, 1],
         [0, 0, 0, 1],
         [0, 1, 0, 0],
         [0, 1, 1, 0]]
-      
-map3x4=[[0, 0, 1, 1],
-        [0, 0, 0, 1],
-        [0, 1, 0, 0]]
-        
+       
+# POSITIVE 
 map9x9=[[0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
@@ -19,30 +17,64 @@ map9x9=[[0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 1, 1, 1, 1, 1, 0, 1, 1],
         [1, 0, 0, 0, 0, 1, 0, 0, 0, 0]]
 
-# CHOOSE MAP
-MAP:list[list[int]]=map3x4 # ONLY EDIT THIS
-print(MAP)
+# NEGATIVE TEST CASE
+map16x16n=[[0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+    [1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+    [1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]]
 
-print(MAP[0])
+# POSITIVE TEST CASE
+map16x16=[[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
+    [0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+    [1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+    [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+    [1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]]
+
+# CHOOSE MAP
+MAP:list[list[int]]=map16x16 # ONLY EDIT THIS
 
 # DIMENSIONS
-temp:list[int]=(MAP[0])
-map_width=len(temp)
+map_width=len(MAP)
 map_height=len(MAP)
-blocked=brown
-free=darkgreen
-route=blue
+blocked=darkgreen
+free=cream
+route=orange
 
 # INIT MAP
 canvas(0, 0, map_width, map_height)
 resolution(map_width, map_height)
 noupdate()
-for x in range(map_width):
-    for y in range(map_height):
-        if (MAP[x][y]):
-            pixset(y, x, blocked)
+for y in range(map_width):
+    for x in range(map_height):
+        if (MAP[y][x]):
+            pixset(x, y, blocked)
         else:
-            pixset(y, x, free)
+            pixset(x, y, free)
 update()
 
 # MAP VARS
@@ -71,12 +103,13 @@ def dfs(x:int, y:int, end_x:int, end_y:int, map:list[list[int]]):
     for coord in directions:
         nx =(x + coord[0]) 
         ny =(y + coord[1]) # adjacent coordinate
-        if is_valid(nx, ny, map) and not is_visited(nx, ny):  # check if within bounds and not blocked
+        if is_valid(ny, nx, map) and not is_visited(nx, ny):  # check if within bounds and not blocked
             visited.append([nx, ny])
             if (dfs(nx, ny, end_x, end_y, map)):
                 return True
             visited.remove([nx, ny])
             path.append([nx, ny])
+            pixset(nx, ny, route)
         else:
             continue
 
@@ -107,17 +140,15 @@ def is_valid(x, y, map):
         return True
       
 # Start DFS from the entrance
-
 visited.append([start_x, start_y])
 found = dfs(start_x, start_y, end_x, end_y, MAP)
 path.append([start_x, start_y])
+pixset(start_x, start_y, route)
 
 # Reconstruct the path in order
 if found:
-    # path.reverse()
+    path.reverse() # may not work for 16x16 because of data limit
     print("Path found:", path)
-    print("Visited: ", visited)
-    print("yippie!")
+    print("Horray!")
 else:
     print("No path found")
-
