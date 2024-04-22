@@ -3,7 +3,6 @@
 ### Overview
 
 <p align="center">
-  <img src="./images/maze16x16unsolved.png" alt="Unsolved 16 by 16 maze" style="width: 100%;"/>
   <img src="./images/maze16x16solved.png" alt="Solved 16 by 16 maze" style="width: 100%;"/>
 </p>
 
@@ -73,7 +72,7 @@ def dfs(x: int, y: int, end_x: int, end_y: int, map: list[list[int]])
 - `y (int)`: The current y-coordinate (column index) in the grid.
 - `end_x (int)`: The x-coordinate (row index) of the destination.
 - `end_y (int)`: The y-coordinate (column index) of the destination.
-- `map (list[list[int]])`: A 2D matrix representing the grid where typically, 0 might indicate a passable area and 1 a blocked area.
+- `map (list[list[int]])`: A 2D matrix representing the grid where typically, 0 indicate a passable block and 1 a blocked area.
 
 #### Base Case
 
