@@ -7,9 +7,7 @@
   <img src="./images/maze16x16solved.png" alt="Solved 16 by 16 maze" style="width: 100%;"/>
 </p>
 
-This document provides a concise explanation of the Maze Solver program, which utilizes the Depth-First Search (DFS) algorithm to find a path through a given maze. The maze is represented as a 2D grid where open cells are marked by `0` (passable) and blocked cells are marked by `1` (impassable). The program is designed to visualize the path-finding process and can handle mazes of various sizes, demonstrating both the capability to find a path and handle situations where no path exists. You can visit
-
-# ()[]
+This document provides a concise explanation of the Maze Solver program, which utilizes the Depth-First Search (DFS) algorithm to find a path through a given maze. The maze is represented as a 2D grid where open cells are marked by `0` (passable) and blocked cells are marked by `1` (impassable). The program is designed to visualize the path-finding process and can handle mazes of various sizes, demonstrating both the capability to find a path and handle situations where no path exists. You can view a demo of the program [HERE](https://youtu.be/iQ_mnGLJS48).
 
 #### Program Startup and Map Initialization
 
