@@ -61,9 +61,10 @@ MAP:list[list[int]]=map16x16 # ONLY EDIT THIS
 # DIMENSIONS
 map_width=len(MAP)
 map_height=len(MAP)
-blocked=darkgreen
-free=cream
-route=orange
+BLOCKED=darkgreen # these represent walls that are not traversable
+FREE=cream # these free roads are traversable
+EXPLORED=orange # these represent which blocks have been explored by the algo
+PATH=blue # these represents the clear path from start to finish
 
 # INIT MAP
 canvas(0, 0, map_width, map_height)
@@ -72,40 +73,41 @@ noupdate()
 for y in range(map_width):
     for x in range(map_height):
         if (MAP[y][x]):
-            pixset(x, y, blocked)
+            pixset(x, y, BLOCKED)
         else:
-            pixset(x, y, free)
+            pixset(x, y, FREE)
 update()
 
 # MAP VARS
-start_x=0
+start_x=0 # we always start on top left [0, 0]
 start_y=0
-end_x=map_height-1
+end_x=map_height-1 # we end at bottom right [length-1, length-1]
 end_y=map_width-1
 
 # MAP LISTS
-path: list[list[int]] = []
-visited: list[list[int]] = []
-found=False
+route: list[list[int]] = [] # route taken by the algorithm
+visited: list[list[int]] = [] # keeps track of what has been visited
+FOUND=False # keep track if a clear path to exit has been found
 
 # DFS
 def dfs(x:int, y:int, end_x:int, end_y:int, map:list[list[int]]):
-    # check if the current position is the destination
-    if (x == end_x) and (y == end_y):
+    if (x == end_x) and (y == end_y): # check if the current position is the destination
         return True
         
-    # directions to move: right, down, left, up
-    directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    pixset(x, y, EXPLORED) # we explore this new block
+    # print("Traversed", x, y)
+    
+    directions = [[0, 1], [1, 0], [0, -1], [-1, 0]] # directions to move: right, down, left, up
     for coord in directions:
         nx =(x + coord[0]) 
         ny =(y + coord[1]) # adjacent coordinate
         if is_valid(ny, nx, map) and not is_visited(nx, ny):  # check if within bounds and not blocked
-            visited.append([nx, ny])
-            if (dfs(nx, ny, end_x, end_y, map)):
+            visited.append([nx, ny]) # the set neighbours as visited
+            if (dfs(nx, ny, end_x, end_y, map)): # if path to finish is found
+                pixset(nx, ny, PATH) # set the path to finish
+                route.append([nx, ny])
                 return True
-            visited.remove([nx, ny])
-            path.append([nx, ny])
-            pixset(nx, ny, route)
+            visited.remove([nx, ny]) # backtracking
         else:
             continue
 
@@ -116,7 +118,7 @@ def is_visited(x, y):
         return True
     else:
         return False
-    
+
 # Helper function to check whether block is available
 def is_valid(x, y, map):
     if (x < 0) or (x >= map_width) or (y < 0) or (y >= map_height):
@@ -128,16 +130,16 @@ def is_valid(x, y, map):
     else:
         return True
       
-# Start DFS from the entrance
+# Start DFS from the entrance [0,0] and end at end
 visited.append([start_x, start_y])
-found = dfs(start_x, start_y, end_x, end_y, MAP)
-path.append([start_x, start_y])
-pixset(start_x, start_y, route)
+FOUND=dfs(start_x, start_y, end_x, end_y, MAP)
+route.append([start_x, start_y])
+pixset(start_x, start_y, PATH)
 
 # Reconstruct the path in order
-if found:
-    path.reverse() # may not work for 16x16 because of data limit
-    print("Path found:", path)
-    print("Horray!")
+if FOUND:
+    route.reverse() # might not work if the matrix is too large, limited memory
+    print("Path found:", route)
+    print("Horray! :)")
 else:
-    print("No path found")
+    print("No path found :(")

@@ -7,15 +7,18 @@
   <img src="./images/maze16x16solved.png" alt="Solved 16 by 16 maze" style="width: 100%;"/>
 </p>
 
-This document provides a concise explanation of the Maze Solver program, which utilizes the Depth-First Search (DFS) algorithm to find a path through a given maze. The maze is represented as a 2D grid where open cells are marked by `0` (passable) and blocked cells are marked by `1` (impassable). The program is designed to visualize the path-finding process and can handle mazes of various sizes, demonstrating both the capability to find a path and handle situations where no path exists.
+This document provides a concise explanation of the Maze Solver program, which utilizes the Depth-First Search (DFS) algorithm to find a path through a given maze. The maze is represented as a 2D grid where open cells are marked by `0` (passable) and blocked cells are marked by `1` (impassable). The program is designed to visualize the path-finding process and can handle mazes of various sizes, demonstrating both the capability to find a path and handle situations where no path exists. You can visit
+
+# ()[]
 
 #### Program Startup and Map Initialization
 
-Upon starting the program, a maze is chosen from predefined maps. These maps vary in size and complexity, as shown by the different examples provided in the code (e.g., `map4x4`, `map9x9`, `map16x16n`, and `map16x16`). The selected maze is then rendered using a simple graphical representation where:
+Upon starting the program, you choose a maze from predefined maps. The maps differ in size and complexity, including examples like `map4x4`, `map9x9`, `map16x16n`, and `map16x16`. You can change the map by modifying the `MAP` variable in the code. The following color scheme is used to represent different states in the maze:
 
-- **Blocked cells** are displayed in dark green.
-- **Free cells** are displayed in cream.
-- **The path explored by DFS** is marked in orange.
+- **Blocked cells**: dark green.
+- **Free cells**: cream.
+- **Explored path**: orange.
+- **Discovered path**: blue (indicates a valid route from start to finish).
 
 The graphical canvas initializes based on the dimensions of the chosen maze, with each cell of the maze drawn according to its status (blocked or free).
 
@@ -42,6 +45,7 @@ The user can select different maps by editing the `MAP` variable at the beginnin
 ### Special Features
 
 - **Multiple Test Cases**: The code includes various predefined mazes to test the robustness and efficiency of the DFS algorithm in both simple and complex scenarios.
+- **Backtracking**: If DFS reaches a dead-end, it backtracks to explore alternative paths.
 - **Visual Feedback**: Real-time visualization of the DFS algorithm provides insightful feedback on how the algorithm explores the maze, which is beneficial for educational and debugging purposes.
 - **Error Handling**: The program checks for valid movements within the maze, preventing out-of-bound errors and ensuring that the path does not traverse blocked cells.
 
@@ -63,15 +67,15 @@ The function `dfs` implements a Depth-First Search (DFS) algorithm to navigate t
 def dfs(x: int, y: int, end_x: int, end_y: int, map: list[list[int]])
 ```
 
+### Detailed Function Description
+
 #### Parameters
 
-- x (int): The current x-coordinate (row index) in the grid.
-- y (int): The current y-coordinate (column index) in the grid.
-- end_x (int): The x-coordinate (row index) of the destination.
-- end_y (int): The y-coordinate (column index) of the destination.
-- map (list[list[int]]): A 2D matrix representing the grid where typically, 0 might indicate a passable area and 1 a blocked area.
-
-### Function Description
+- `x (int)`: The current x-coordinate (row index) in the grid.
+- `y (int)`: The current y-coordinate (column index) in the grid.
+- `end_x (int)`: The x-coordinate (row index) of the destination.
+- `end_y (int)`: The y-coordinate (column index) of the destination.
+- `map (list[list[int]])`: A 2D matrix representing the grid where typically, 0 might indicate a passable area and 1 a blocked area.
 
 #### Base Case
 
@@ -80,22 +84,28 @@ if (x == end_x) and (y == end_y):
     return True
 ```
 
-This checks if the current position is the destination. If so, the function returns True, indicating the path has been successfully found.
+This condition checks if the current position matches the destination. If so, it confirms a successful path has been found and returns True.
 
-#### Movement Directions
+#### Exploratory Mechanism
+
+##### Marking Exploration:
+
+```python
+pixset(x, y, EXPLORED)
+print("Traversed", x, y)
+```
+
+Marks the current cell as explored and outputs the traversal information, which aids in visual tracking and debugging.
+
+##### Movement Directions:
 
 ```python
 directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
 ```
 
-Defines possible movements from any position:
+Defines potential movements to adjacent cells, enabling exploration in four directions: right, down, left, and up.
 
-- [0, 1]: Move right
-- [1, 0]: Move down
-- [0, -1]: Move left
-- [-1, 0]: Move up
-
-#### Exploring Directions
+##### Directional Exploration:
 
 ```python
 for coord in directions:
@@ -103,25 +113,21 @@ for coord in directions:
     ny = (y + coord[1])
 ```
 
-Iterates over each direction to calculate new potential positions (nx, ny).
-
-#### Validation and Recursive Call
+Iterates over each direction to compute new positions `(nx, ny)` based on the current position.
+Validation and Recursive Exploration
 
 ```python
 if is_valid(ny, nx, map) and not is_visited(nx, ny):
     visited.append([nx, ny])
     if dfs(nx, ny, end_x, end_y, map):
+        pixset(nx, ny, PATH)  # Marking the path visually
+        route.append([nx, ny])  # Adding to the path list
         return True
-    visited.remove([nx, ny])
+    visited.remove([nx, ny])  # Backtracking if no path is found
 ```
 
-Checks if the new position is valid and not previously visited. If valid, it marks the position as visited and makes a recursive call. If the call finds a path, True is returned.
+Checks if the new position is within bounds, passable, and not previously visited. If valid, the position is marked as visited and a recursive call is made. If the recursive call returns True, it indicates a path to the destination is found; otherwise, it backtracks by removing the position from the visited list.
 
 #### Backtracking
 
-```python
-path.append([nx, ny])
-pixset(nx, ny, route)
-```
-
-If a path through (nx, ny) does not lead to the destination, it backtracks by removing the position from the visited list, adds to the path list for tracking, and potentially marks the position visually or otherwise.
+In cases where a path to the destination is not found through a particular recursive path, the algorithm backtracks, allowing exploration of alternative routes. This process continues until all possible paths are explored or a valid path is discovered.
